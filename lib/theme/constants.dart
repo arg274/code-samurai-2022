@@ -188,6 +188,7 @@ TextTheme textTheme = const TextTheme(
   headline4: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w900),
   bodyText1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400),
   headline6: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+  bodyText2: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w400),
 ).fixFontFamily();
 
 extension CustomStyles on TextTheme {

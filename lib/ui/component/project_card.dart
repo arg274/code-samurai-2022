@@ -94,8 +94,13 @@ class ProjectCard extends StatelessWidget {
                           ),
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Text(project.description,
+                            child: Text(project.agency,
                                 style: Theme.of(context).textTheme.bodyText1),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0.0, 3.0, 0.0, 0.0),
+                            child: Text(project.description,
+                                style: Theme.of(context).textTheme.bodyText2),
                           ),
                         ],
                       ),

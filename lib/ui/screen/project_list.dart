@@ -35,10 +35,10 @@ class _ProjectListState extends State<ProjectList> {
           for (var project in snapshot.data!) {
             projects.add(Project.fromCsvLine(project));
           }
-
-          print(projects.length);
           
-          child = ListView.builder(itemBuilder: (context, index) {
+          child = ListView.builder(
+              itemCount: projects.length,
+              itemBuilder: (context, index) {
             return Padding(
               padding: cardListEdgeInsets,
               child: ProjectCard(
