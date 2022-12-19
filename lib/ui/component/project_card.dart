@@ -1,8 +1,10 @@
+import 'package:basics/basics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:codesamuraiproto2022/model/project.dart';
 import 'package:codesamuraiproto2022/theme/constants.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:intl/intl.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -35,50 +37,15 @@ class ProjectCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Stack(children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(cardRadius)),
-                  child: AspectRatio(
-                    aspectRatio: 1200 / 627,
-                    child: FadeInImage(
-                      placeholder: MemoryImage(kTransparentImage),
-                      image: MemoryImage(kTransparentImage),
-                      fit: BoxFit.cover,
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Image.asset('assets/no_img.jpg',
-                            fit: BoxFit.cover);
-                      },
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 10,
-                  top: 10,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 7.5, vertical: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Theme.of(context).cardColor,
-                    ),
-                    child: Text(project.category,
-                        style: Theme.of(context).textTheme.bodyText1),
-                  ),
-                ),
-              ]),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 12.0, 20.0, 12.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.fromLTRB(0.0, 4.0, 4.0, 4.0),
-                      margin: const EdgeInsets.all(1.0),
-                      child: IconButton(
-                        onPressed: () {
-                        },
-                        icon: const Icon(FeatherIcons.copy),
+                      padding: const EdgeInsets.fromLTRB(0.0, 4.0, 20.0, 4.0),
+                      margin: const EdgeInsets.all(2.0),
+                      child: Icon(
+                        FeatherIcons.mapPin,
                         color: Theme.of(context).textTheme.bodyText1?.color,
                       ),
                     ),
@@ -97,8 +64,14 @@ class ProjectCard extends StatelessWidget {
                             child: Text(project.agency,
                                 style: Theme.of(context).textTheme.bodyText1),
                           ),
+                          Text(
+                            '${DateFormat.yMMMMd().format(project.start)} - ${DateFormat.yMMMMd().format(project.start)}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0.0, 3.0, 0.0, 0.0),
+                            padding: const EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 0.0),
                             child: Text(project.description,
                                 style: Theme.of(context).textTheme.bodyText2),
                           ),
@@ -108,10 +81,66 @@ class ProjectCard extends StatelessWidget {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  insertDuoStat(
+                      context,
+                      CircularPercentIndicator(
+                        radius: 35.0,
+                        lineWidth: 5.0,
+                        percent: project.completion / 100,
+                        center: Text(
+                          '${project.completion}%',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        progressColor: Colors.teal,
+                      ),
+                      'Completion'),
+                  insertDuoStat(context,
+                      Text(
+                        project.budget.replaceFirst('JPY ', ''),
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      'Budget'
+                  ),
+                  insertDuoStat(context,
+                      Text(
+                        project.start.calendarDaysTill(
+                            project.end.year,
+                            project.end.month,
+                            project.end.day).toString(),
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                      'Days Left')
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget insertDuoStat(BuildContext context, Widget top, String stat) {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        top,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+          child: Text(
+            stat,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
+        )
+      ],
+    ),
+  );
 }
