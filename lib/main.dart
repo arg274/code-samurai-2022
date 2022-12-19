@@ -5,6 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:codesamuraiproto2022/theme/constants.dart';
 import 'package:codesamuraiproto2022/ui/screen/project_map.dart';
 import 'package:codesamuraiproto2022/ui/screen/project_list.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

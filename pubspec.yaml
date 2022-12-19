@@ -54,6 +54,7 @@ dependencies:
   percent_indicator: ^4.2.2
   intl: ^0.17.0
   basics: ^0.9.0
+  mapbox_gl: ^0.16.0
 
 dev_dependencies:
   flutter_test:

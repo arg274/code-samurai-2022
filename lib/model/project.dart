@@ -38,10 +38,10 @@ class Project {
 }
 
 class Coord {
-  double long;
   double lat;
+  double long;
 
-  Coord(this.long, this.lat);
+  Coord(this.lat, this.long);
 
   @override
   bool operator ==(Object other) =>
