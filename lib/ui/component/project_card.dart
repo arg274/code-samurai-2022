@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:codesamuraiproto2022/model/project.dart';
 import 'package:codesamuraiproto2022/theme/constants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
-class ResourceCard extends StatelessWidget {
+class ProjectCard extends StatelessWidget {
   final Project project;
 
-  const ResourceCard(
+  const ProjectCard(
       {Key? key,
         required this.project})
       : super(key: key);
@@ -35,6 +36,22 @@ class ResourceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Stack(children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(cardRadius)),
+                  child: AspectRatio(
+                    aspectRatio: 1200 / 627,
+                    child: FadeInImage(
+                      placeholder: MemoryImage(kTransparentImage),
+                      image: MemoryImage(kTransparentImage),
+                      fit: BoxFit.cover,
+                      imageErrorBuilder: (context, error, stackTrace) {
+                        return Image.asset('assets/no_img.jpg',
+                            fit: BoxFit.cover);
+                      },
+                    ),
+                  ),
+                ),
                 Positioned(
                   left: 10,
                   top: 10,

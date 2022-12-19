@@ -1,5 +1,7 @@
 import 'package:codesamuraiproto2022/model/project.dart';
 import 'package:codesamuraiproto2022/parser/csv_parser.dart';
+import 'package:codesamuraiproto2022/theme/constants.dart';
+import 'package:codesamuraiproto2022/ui/component/project_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -33,12 +35,17 @@ class _ProjectListState extends State<ProjectList> {
           for (var project in snapshot.data!) {
             projects.add(Project.fromCsvLine(project));
           }
+
+          print(projects.length);
           
-          child = const Center(
-            child: Text(
-              'CSV Parsed'
-            ),
-          );
+          child = ListView.builder(itemBuilder: (context, index) {
+            return Padding(
+              padding: cardListEdgeInsets,
+              child: ProjectCard(
+                project: projects[index],
+              ),
+            );
+          });
         } else {
           child = Container(
             color: Theme.of(context).scaffoldBackgroundColor,
